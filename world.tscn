@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://od5m3mfkfi2x"]
+
+[ext_resource type="Script" uid="uid://bp65uwyt41lk5" path="res://world.gd" id="1_f3sb7"]
+[ext_resource type="PackedScene" uid="uid://ddj7e6ybpskb4" path="res://pause_menu.tscn" id="2_036b0"]
+[ext_resource type="Script" uid="uid://bhey0do1jn2ns" path="res://wave_drawer.gd" id="2_fj7yv"]
+[ext_resource type="PackedScene" uid="uid://suufrxtls4xf" path="res://player.tscn" id="3_tlwt5"]
+[ext_resource type="PackedScene" uid="uid://btrydsx5evx1" path="res://mouth.tscn" id="4_aqk2v"]
+
+[node name="World" type="Node2D"]
+script = ExtResource("1_f3sb7")
+
+[node name="WaveDrawer" type="ColorRect" parent="."]
+offset_left = 388.0
+offset_top = 22.0
+offset_right = 1126.0
+offset_bottom = 407.0
+color = Color(0, 0, 0, 1)
+script = ExtResource("2_fj7yv")
+target_line_color = Color(0, 1, 0.01666665, 0.5686275)
+player_line_color = Color(1, 0, 0, 1)
+
+[node name="Player" parent="." instance=ExtResource("3_tlwt5")]
+position = Vector2(533, 439)
+
+[node name="Packages" type="Node2D" parent="."]
+
+[node name="Mouths" type="Node2D" parent="."]
+
+[node name="Mouth" parent="Mouths" instance=ExtResource("4_aqk2v")]
+position = Vector2(1098, 365)
+
+[node name="Mouth2" parent="Mouths" instance=ExtResource("4_aqk2v")]
+position = Vector2(1098, 365)
+
+[node name="Mouth3" parent="Mouths" instance=ExtResource("4_aqk2v")]
+position = Vector2(1098, 365)
+
+[node name="Transition" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="WaveStartDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="WavePaddingDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_036b0")]
+process_mode = 3
+visible = false
+offset_left = 533.0
+offset_top = 337.0
+offset_right = 533.0
+offset_bottom = 337.0
+
+[connection signal="timeout" from="Transition" to="." method="_on_transition_timeout"]
+[connection signal="timeout" from="WaveStartDelay" to="." method="_on_wave_start_delay_timeout"]
+[connection signal="timeout" from="WavePaddingDelay" to="." method="_on_wave_padding_delay_timeout"]
