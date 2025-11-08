@@ -44,9 +44,28 @@ var subWaveIndex: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().paused = true;
+	$MainMenu.show()
+
+func startGame() -> void:
+	# Clear variables
+	totalPackagesDropped = 0
+	totalPackagesEaten = 0
+	
+	# Reset player sliders
+	player.reset()
+	
+	# Remove old packages
+	for pck in $Packages.get_children():
+		pck.queue_free()
+	
+	# Set new target and spawnQueue
 	newTargetWave(1)
 	newSpawnQueue()
+	
+	# Unpause and begin
 	$Transition.start()
+	get_tree().paused = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -134,3 +153,13 @@ func _on_wave_start_delay_timeout() -> void:
 # Start next waves
 func _on_transition_timeout() -> void:
 	$WaveStartDelay.start(spawnQueue[waveIndex].delay)
+
+
+func canPause() -> bool:
+	return !$MainMenu.visible
+
+func openMainMenu() -> void:
+	$MainMenu.show()
+	$Transition.stop()
+	$WaveStartDelay.stop()
+	$WavePaddingDelay.stop()

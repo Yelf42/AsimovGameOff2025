@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://od5m3mfkfi2x"]
+[gd_scene load_steps=7 format=3 uid="uid://od5m3mfkfi2x"]
 
 [ext_resource type="Script" uid="uid://bp65uwyt41lk5" path="res://Scripts/world.gd" id="1_f3sb7"]
 [ext_resource type="PackedScene" uid="uid://ddj7e6ybpskb4" path="res://Scenes/pause_menu.tscn" id="2_036b0"]
 [ext_resource type="Script" uid="uid://bhey0do1jn2ns" path="res://Scripts/wave_drawer.gd" id="2_fj7yv"]
 [ext_resource type="PackedScene" uid="uid://suufrxtls4xf" path="res://Scenes/player_controls.tscn" id="3_tlwt5"]
 [ext_resource type="PackedScene" uid="uid://btrydsx5evx1" path="res://Scenes/mouth.tscn" id="4_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://r4ytomf7hl16" path="res://Scenes/main_menu.tscn" id="6_5ukr8"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
@@ -46,12 +47,19 @@ one_shot = true
 one_shot = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_036b0")]
-process_mode = 3
 visible = false
-offset_left = 533.0
-offset_top = 337.0
-offset_right = 533.0
-offset_bottom = 337.0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="MainMenu" parent="." instance=ExtResource("6_5ukr8")]
+visible = false
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="timeout" from="Transition" to="." method="_on_transition_timeout"]
 [connection signal="timeout" from="WaveStartDelay" to="." method="_on_wave_start_delay_timeout"]

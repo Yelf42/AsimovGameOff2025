@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://r4ytomf7hl16"]
+
+[ext_resource type="Script" uid="uid://3233o4fox5q2" path="res://Scripts/main_menu.gd" id="1_28flt"]
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_28flt")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMenuPostProcess" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.07, 0.07, 0.07, 1)
+
+[node name="Play" type="Button" parent="."]
+layout_mode = 0
+offset_left = 472.0
+offset_top = 272.0
+offset_right = 632.0
+offset_bottom = 352.0
+text = "Play"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
