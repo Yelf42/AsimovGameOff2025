@@ -25,6 +25,8 @@ const MAX_WAVELENGTH = 15
 var totalPackagesDropped: int = 0
 var totalPackagesEaten: int = 0
 
+var dropLimit: int = 10
+
 class PackagePack:
 	# Amount of time to wait before spawning starts
 	var delay: float
@@ -46,11 +48,14 @@ var subWaveIndex: int
 func _ready() -> void:
 	get_tree().paused = true;
 	$MainMenu.show()
+	$PauseMenu.hide()
+	$GameOverMenu.hide()
 
 func startGame() -> void:
-	# Clear variables
+	# Reset variables
 	totalPackagesDropped = 0
 	totalPackagesEaten = 0
+	dropLimit = 10
 	
 	# Reset player sliders
 	player.reset()
@@ -74,6 +79,10 @@ func _process(_delta: float) -> void:
 		newTargetWave(1)
 		newSpawnQueue()
 		$Transition.start()
+		dropLimit += 1
+	
+	if (totalPackagesDropped > dropLimit):
+		gameOver()
 	
 	# Mouth positioning
 	handleMouthPositioning()
@@ -156,10 +165,18 @@ func _on_transition_timeout() -> void:
 
 
 func canPause() -> bool:
-	return !$MainMenu.visible
+	return !$MainMenu.visible and !$GameOverMenu.visible
 
 func openMainMenu() -> void:
 	$MainMenu.show()
+	stopTimers()
+
+func stopTimers() -> void:
 	$Transition.stop()
 	$WaveStartDelay.stop()
 	$WavePaddingDelay.stop()
+
+func gameOver() -> void:
+	$GameOverMenu.show()
+	get_tree().paused = true
+	stopTimers()

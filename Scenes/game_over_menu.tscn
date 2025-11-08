@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddj7e6ybpskb4"]
+[gd_scene load_steps=2 format=3 uid="uid://7iqa37rxi25j"]
 
-[ext_resource type="Script" uid="uid://dqwwxa8sganml" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
+[ext_resource type="Script" uid="uid://bwy3tvumkjl5r" path="res://Scripts/game_over_menu.gd" id="1_arass"]
 
-[node name="PauseMenu" type="Control"]
+[node name="GameOverMenu" type="Control"]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -10,16 +10,16 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_hdmo1")
+script = ExtResource("1_arass")
 
-[node name="PausePostProcess" type="ColorRect" parent="."]
+[node name="GameOverPostProcess" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0.21960784)
+color = Color(1, 0.14999998, 0.14999998, 0.27450982)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -28,19 +28,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
+offset_left = -152.0
+offset_top = -60.0
+offset_right = 148.0
+offset_bottom = 240.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(150, 150)
 alignment = 1
 
-[node name="Resume" type="Button" parent="VBoxContainer"]
+[node name="PADDING3" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "RESUME"
+color = Color(1, 1, 1, 0)
+
+[node name="PADDING2" type="ColorRect" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+color = Color(1, 1, 1, 0)
+
+[node name="Retry" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "RETRY"
 
 [node name="PADDING" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -58,8 +68,8 @@ offset_left = 528.0
 offset_top = 112.0
 offset_right = 624.0
 offset_bottom = 135.0
-text = "PAUSE"
+text = "GAME OVER"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

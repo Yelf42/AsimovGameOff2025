@@ -31,10 +31,19 @@ color = Color(0.07, 0.07, 0.07, 1)
 
 [node name="Play" type="Button" parent="."]
 layout_mode = 0
-offset_left = 472.0
-offset_top = 272.0
-offset_right = 632.0
-offset_bottom = 352.0
+offset_left = 496.0
+offset_top = 280.0
+offset_right = 656.0
+offset_bottom = 360.0
 text = "Play"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 528.0
+offset_top = 120.0
+offset_right = 624.0
+offset_bottom = 143.0
+text = "MAIN MENU"
+horizontal_alignment = 1
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
