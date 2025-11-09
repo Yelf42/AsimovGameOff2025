@@ -24,6 +24,7 @@ const MAX_WAVELENGTH = 15
 # Score trackers
 var totalPackagesDropped: int = 0
 var totalPackagesEaten: int = 0
+var waveCount: int = 0
 
 var dropLimit: int = 10
 
@@ -55,6 +56,7 @@ func startGame() -> void:
 	# Reset variables
 	totalPackagesDropped = 0
 	totalPackagesEaten = 0
+	waveCount = 0
 	dropLimit = 10
 	
 	# Reset player sliders
@@ -72,13 +74,13 @@ func startGame() -> void:
 	$Transition.start()
 	get_tree().paused = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	# New wave, new spawnQueue
 	if (waveIndex >= spawnQueue.size() and $Packages.get_child_count() == 0):
 		newTargetWave(1)
 		newSpawnQueue()
 		$Transition.start()
+		waveCount += 1
 		dropLimit += 1
 	
 	if (totalPackagesDropped > dropLimit):
