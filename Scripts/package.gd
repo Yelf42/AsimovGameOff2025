@@ -1,9 +1,9 @@
 extends Node2D
 
 var t = 1.0
-var speed = 0.1
+var speed: float = 0.1
 
-var health = 1
+var health: int = 1
 @export var health_1_color: Color
 @export var health_2_color: Color
 @export var health_3_color: Color
@@ -12,9 +12,9 @@ var root
 
 var collided := {}
 
-func create(_health: int = 1, _speed: float = 0.1) -> void:
-	health = _health
-	speed = _speed
+func create(healthSpeed: Vector2) -> void:
+	health = int(healthSpeed.x)
+	speed = 0.1 * healthSpeed.y
 
 func _ready() -> void:
 	root = get_tree().current_scene
@@ -28,7 +28,6 @@ func _process(delta: float) -> void:
 		root.totalPackagesEaten += 1
 		queue_free()
 	t -= speed * delta
-	
 	match(health):
 		1:
 			$CollisionShape2D.debug_color = health_1_color

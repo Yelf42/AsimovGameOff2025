@@ -34,9 +34,9 @@ class PackagePack:
 	# Time between each spawn
 	var padding: float
 	# Health values of the packages
-	var toSpawn: PackedFloat32Array
+	var toSpawn: PackedVector2Array
 	
-	func _init(_delay: float, _padding: float, _toSpawn: PackedFloat32Array) -> void:
+	func _init(_delay: float, _padding: float, _toSpawn: PackedVector2Array) -> void:
 		delay = _delay
 		padding = _padding
 		toSpawn = _toSpawn
@@ -44,6 +44,8 @@ class PackagePack:
 var spawnQueue: Array[PackagePack]
 var waveIndex: int
 var subWaveIndex: int
+
+const WAVES_UNTIL_CHANGE = 5
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,7 +69,7 @@ func startGame() -> void:
 		pck.queue_free()
 	
 	# Set new target and spawnQueue
-	newTargetWave(1)
+	newTargetWave()
 	newSpawnQueue()
 	
 	# Unpause and begin
@@ -77,7 +79,7 @@ func startGame() -> void:
 func _process(_delta: float) -> void:
 	# New wave, new spawnQueue
 	if (waveIndex >= spawnQueue.size() and $Packages.get_child_count() == 0):
-		newTargetWave(1)
+		newTargetWave()
 		newSpawnQueue()
 		$Transition.start()
 		waveCount += 1
@@ -89,7 +91,18 @@ func _process(_delta: float) -> void:
 	# Mouth positioning
 	handleMouthPositioning()
 
-func newTargetWave(waves: int) -> void:
+# Decides how complex new target wave should be based on waveCount
+func getInterWaveComplexity() -> int:
+	return 1 + int(float(waveCount) / WAVES_UNTIL_CHANGE)
+
+# Decides difficulty of spawnQueue
+# Should ramp up between changes in getInterWaveComplexity
+func getIntraWaveComplexity() -> int:
+	return (waveCount % WAVES_UNTIL_CHANGE)
+
+func newTargetWave() -> void:
+	var waves = getInterWaveComplexity()
+	
 	targetWave.clear()
 	var ampSumMax = MAX_AMPLITUDE;
 	for i in range(waves):
@@ -112,10 +125,43 @@ func newTargetWave(waves: int) -> void:
 		targetWave[0].x += MIN_AMPLITUDE - (MAX_AMPLITUDE - ampSumMax)
 
 func newSpawnQueue() -> void:
+	var intraWaveDifficulty = getIntraWaveComplexity()
+	var interWaveDifficulty = getInterWaveComplexity()
 	spawnQueue.clear()
-	spawnQueue.append(PackagePack.new(1, 0.2, [1,1,1,1]))
-	spawnQueue.append(PackagePack.new(1, 0.8, [2,3,2,3]))
+	
+	spawnQueue.append(PackagePack.new(1, 0.3, generateAlternating(5, 2, 1)))
+	spawnQueue.append(PackagePack.new(1, 0.4, generateAscending(8, 3, 1)))
+	
 	waveIndex = 0
+
+# Packages of equal hp
+func generateStandard(num: int, hp: int, spdMult: float) -> PackedVector2Array:
+	var res = []
+	for i in range(num):
+		res.append(Vector2(hp, spdMult))
+	return res
+
+# Packages of alternating hp
+func generateAlternating(num: int, hpMax: int, spdMult: float) -> PackedVector2Array:
+	var res = []
+	if (hpMax == 1): return generateStandard(num, 1, spdMult)
+	var evenHP = randi_range(1, hpMax)
+	var oddHP = randi_range(1, hpMax)
+	while (oddHP == evenHP): oddHP = randi_range(1, hpMax)
+	for i in range(num):
+		res.append(Vector2(evenHP if (i % 2 == 0) else oddHP, spdMult))
+	return res
+
+# Packages of ascending hp
+func generateAscending(num: int, hpMax: int, spdMult: float) -> PackedVector2Array:
+	var res = []
+	var base = int(float(num) / hpMax)
+	var remainder = num % hpMax
+	for i in range(1, hpMax + 1):
+		var count = base + (1 if i <= remainder else 0)
+		for j in range(count):
+			res.append(Vector2(i,spdMult))
+	return res
 
 func handleMouthPositioning() -> void:
 	var i = 0
@@ -151,7 +197,7 @@ func _on_wave_padding_delay_timeout() -> void:
 			$WaveStartDelay.start(spawnQueue[waveIndex].delay)
 	else:
 		var b = package.instantiate()
-		b.create(spawnQueue[waveIndex].toSpawn[subWaveIndex], 0.1)
+		b.create(spawnQueue[waveIndex].toSpawn[subWaveIndex])
 		packages.add_child(b)
 		subWaveIndex += 1
 		$WavePaddingDelay.start(spawnQueue[waveIndex].padding)
