@@ -1,12 +1,16 @@
 extends Node2D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+var canEditAmplitude: bool = true
+var canEditWavelength: bool = true
+var canEditOffset: bool = true
+
 func _process(_delta: float) -> void:
 	pass
 
 func getFunction(x: float) -> float:
 	var A = $HBoxContainer/Amplitude.value
-	var W = max($HBoxContainer/VBoxContainer/Wavelength.max_value - $HBoxContainer/VBoxContainer/Wavelength.value, $HBoxContainer/VBoxContainer/Wavelength.min_value)
+	#var W = max($HBoxContainer/VBoxContainer/Wavelength.max_value - $HBoxContainer/VBoxContainer/Wavelength.value, $HBoxContainer/VBoxContainer/Wavelength.min_value)
+	var W = $HBoxContainer/VBoxContainer/Wavelength.value
 	var O = -$HBoxContainer/VBoxContainer/Offset.value
 	return A * sin(W * x + O)
 
@@ -16,26 +20,48 @@ func reset() -> void:
 	$HBoxContainer/VBoxContainer/Wavelength.value = xyz.y
 	$HBoxContainer/VBoxContainer/Offset.value = xyz.z
 
-func lerpSliders(t: float = 0.1) -> void:
+func lerpSliders(t: float = 0.01) -> void:
 	var xyz = getSliderCenters()
-	$HBoxContainer/Amplitude.value = lerp($HBoxContainer/Amplitude.value, xyz.x, t)
-	$HBoxContainer/VBoxContainer/Wavelength.value = lerp($HBoxContainer/VBoxContainer/Wavelength.value, xyz.y, t)
-	$HBoxContainer/VBoxContainer/Offset.value = lerp($HBoxContainer/VBoxContainer/Offset.value, xyz.z, t)
+	$HBoxContainer/Amplitude.value = move_toward($HBoxContainer/Amplitude.value, xyz.x, t)
+	$HBoxContainer/VBoxContainer/Wavelength.value = move_toward($HBoxContainer/VBoxContainer/Wavelength.value, xyz.y, t)
+	$HBoxContainer/VBoxContainer/Offset.value = move_toward($HBoxContainer/VBoxContainer/Offset.value, xyz.z, t)
 
-func lerpAmplitude(t: float = 0.1) -> void:
+func lerpAmplitude(t: float = 0.01) -> void:
+	if (!canEditAmplitude): return
 	var xyz = getSliderCenters()
-	$HBoxContainer/Amplitude.value = lerp($HBoxContainer/Amplitude.value, xyz.x, t)
+	$HBoxContainer/Amplitude.value = move_toward($HBoxContainer/Amplitude.value, xyz.x, t)
 
-func lerpWavelength(t: float = 0.1) -> void:
+func lerpWavelength(t: float = 0.01) -> void:
+	if (!canEditWavelength): return
 	var xyz = getSliderCenters()
-	$HBoxContainer/VBoxContainer/Wavelength.value = lerp($HBoxContainer/VBoxContainer/Wavelength.value, xyz.y, t)
+	$HBoxContainer/VBoxContainer/Wavelength.value = move_toward($HBoxContainer/VBoxContainer/Wavelength.value, xyz.y, t)
 
-func lerpOffset(t: float = 0.1) -> void:
+func lerpOffset(t: float = 0.01) -> void:
+	if (!canEditOffset): return
 	var xyz = getSliderCenters()
-	$HBoxContainer/VBoxContainer/Offset.value = lerp($HBoxContainer/VBoxContainer/Offset.value, xyz.z, t)
+	$HBoxContainer/VBoxContainer/Offset.value = move_toward($HBoxContainer/VBoxContainer/Offset.value, xyz.z, t)
 
 func getSliderCenters() -> Vector3:
 	var x = ($HBoxContainer/Amplitude.max_value + $HBoxContainer/Amplitude.min_value) / 2.0
 	var y = ($HBoxContainer/VBoxContainer/Wavelength.max_value + $HBoxContainer/VBoxContainer/Wavelength.min_value) / 2.0
 	var z = ($HBoxContainer/VBoxContainer/Offset.max_value + $HBoxContainer/VBoxContainer/Offset.min_value) / 2.0
 	return Vector3(x,y,z)
+
+
+
+
+
+func _on_amplitude_drag_started() -> void:
+	canEditAmplitude = false
+func _on_amplitude_drag_ended(_value_changed: bool) -> void:
+	canEditAmplitude = true
+
+func _on_wavelength_drag_started() -> void:
+	canEditWavelength = false
+func _on_wavelength_drag_ended(_value_changed: bool) -> void:
+	canEditWavelength = true
+
+func _on_offset_drag_started() -> void:
+	canEditOffset = false
+func _on_offset_drag_ended(_value_changed: bool) -> void:
+	canEditOffset = true

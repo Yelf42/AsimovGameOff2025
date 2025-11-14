@@ -44,8 +44,14 @@ class PackagePack:
 var spawnQueue: Array[PackagePack]
 var waveIndex: int
 var subWaveIndex: int
-
 const WAVES_UNTIL_CHANGE = 5
+
+# Glitch variables
+var glitchArray: PackedStringArray
+const GLITCH_ORDER: PackedInt32Array = [0,1,1,2,2,2,3]
+const GLITCH_TYPES: PackedStringArray = ["lerpAmplitude", "lerpWavelength", "lerpOffset"]
+const LERP_AMOUNT = 0.01
+var numberOfLerps = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -71,6 +77,7 @@ func startGame() -> void:
 	# Set new target and spawnQueue
 	newTargetWave()
 	newSpawnQueue()
+	newGlitchArray() # Shouldnt do anything, but nice for testing
 	
 	# Unpause and begin
 	$Transition.start()
@@ -79,10 +86,16 @@ func startGame() -> void:
 func _process(_delta: float) -> void:
 	# New wave, new spawnQueue
 	if (waveIndex >= spawnQueue.size() and $Packages.get_child_count() == 0):
+		var oldWaveComplexity = getInterWaveComplexity()
+		waveCount += 1
+		var newWaveComplexity = getInterWaveComplexity()
+		if (oldWaveComplexity != newWaveComplexity):
+			newGlitchArray()
+			
 		newTargetWave()
 		newSpawnQueue()
-		$Transition.start(0.5 + 3.0 * pow(0.8, getInterWaveComplexity()))
-		waveCount += 1
+		
+		$Transition.start(0.5 + 3.0 * pow(0.8, newWaveComplexity))
 		dropLimit += 1
 	
 	if (totalPackagesDropped > dropLimit):
@@ -90,6 +103,9 @@ func _process(_delta: float) -> void:
 	
 	# Mouth positioning
 	handleMouthPositioning()
+	
+	# Glitch handling
+	handleGlitches()
 
 # Decides how complex new target wave should be based on waveCount
 func getInterWaveComplexity() -> int:
@@ -132,15 +148,17 @@ func newSpawnQueue() -> void:
 	var spdMult = 1.0 + (0.1 * interWaveDifficulty) + (0.05 * intraWaveDifficulty)
 	
 	var numPacks = randi_range(1, (intraWaveDifficulty + 2))
+	var maxHP = $Mouths.get_child_count()
+	if (numberOfLerps > 1): maxHP = max(1, maxHP - 1)
 	for i in range(numPacks):
 		var numPackages = floor(10.0 * log(0.2 * interWaveDifficulty + 1.0)) + randi_range(1, 1 + intraWaveDifficulty)
 		if (i == 0):
 			spawnQueue.append(PackagePack.new(0,0.3, generateStandard(numPackages, 1, 1.1 * spdMult)))
 			continue
 		if (randf() < 0.6):
-			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAscending(numPackages, $Mouths.get_child_count(), spdMult)))
+			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAscending(numPackages, maxHP, spdMult)))
 		else:
-			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAlternating(numPackages, $Mouths.get_child_count(), spdMult)))
+			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAlternating(numPackages, maxHP, spdMult)))
 	
 	waveIndex = 0
 
@@ -172,6 +190,31 @@ func generateAscending(num: int, hpMax: int, spdMult: float) -> PackedVector2Arr
 		for j in range(count):
 			res.append(Vector2(i,spdMult))
 	return res
+
+func newGlitchArray() -> void:
+	glitchArray.clear()
+	var numGlitches = 3
+	numberOfLerps = 0
+	# Ramp up num glitches slowly
+	if (getInterWaveComplexity() < GLITCH_ORDER.size()):
+		numGlitches = GLITCH_ORDER[getInterWaveComplexity()]
+	for i in range(numGlitches):
+		var glitch: String = GLITCH_TYPES[randi_range(0, GLITCH_TYPES.size() - 1)]
+		while (glitchArray.count(glitch) != 0):
+			glitch = GLITCH_TYPES[randi_range(0, GLITCH_TYPES.size() - 1)]
+		if (glitch.contains("lerp")):
+			numberOfLerps += 1
+		glitchArray.append(glitch)
+
+func handleGlitches() -> void:
+	for glitch in glitchArray:
+		match(glitch):
+			"lerpAmplitude":
+				player.lerpAmplitude(LERP_AMOUNT / pow(numberOfLerps, 2))
+			"lerpWavelength":
+				player.lerpWavelength(LERP_AMOUNT / pow(numberOfLerps, 2))
+			"lerpOffset":
+				player.lerpOffset(LERP_AMOUNT / pow(numberOfLerps, 2))
 
 func handleMouthPositioning() -> void:
 	var i = 0

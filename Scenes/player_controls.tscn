@@ -17,7 +17,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 min_value = -3.0
 max_value = 3.0
-step = 0.005
+step = 0.001
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -28,14 +28,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 min_value = 0.5
-max_value = 5.0
-step = 0.005
-value = 2.5
+max_value = 3.0
+step = 0.001
+value = 1.5
 
 [node name="Offset" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 12.0
-step = 0.005
+step = 0.001
 value = 5.0
+
+[connection signal="drag_ended" from="HBoxContainer/Amplitude" to="." method="_on_amplitude_drag_ended"]
+[connection signal="drag_started" from="HBoxContainer/Amplitude" to="." method="_on_amplitude_drag_started"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/Wavelength" to="." method="_on_wavelength_drag_ended"]
+[connection signal="drag_started" from="HBoxContainer/VBoxContainer/Wavelength" to="." method="_on_wavelength_drag_started"]
+[connection signal="drag_ended" from="HBoxContainer/VBoxContainer/Offset" to="." method="_on_offset_drag_ended"]
+[connection signal="drag_started" from="HBoxContainer/VBoxContainer/Offset" to="." method="_on_offset_drag_started"]
