@@ -4,8 +4,15 @@ var canEditAmplitude: bool = true
 var canEditWavelength: bool = true
 var canEditOffset: bool = true
 
+var lerpAmplitudeGlitch: bool = false
+var lerpWavelengthGlitch: bool = false
+var lerpOffsetGlitch: bool = false
+var lerpAmount: float = 0.0
+
 func _process(_delta: float) -> void:
-	pass
+	if (lerpAmplitudeGlitch): lerpAmplitude(lerpAmount)
+	if (lerpWavelengthGlitch): lerpWavelength(lerpAmount)
+	if (lerpOffsetGlitch): lerpOffset(lerpAmount)
 
 func getFunction(x: float) -> float:
 	var A = $HBoxContainer/Amplitude.value
@@ -19,6 +26,12 @@ func reset() -> void:
 	$HBoxContainer/Amplitude.value = xyz.x
 	$HBoxContainer/VBoxContainer/Wavelength.value = xyz.y
 	$HBoxContainer/VBoxContainer/Offset.value = xyz.z
+
+func resetGlitches() -> void:
+	lerpAmplitudeGlitch = false
+	lerpWavelengthGlitch = false
+	lerpOffsetGlitch = false
+	lerpAmount = 0.0
 
 func lerpSliders(t: float = 0.01) -> void:
 	var xyz = getSliderCenters()

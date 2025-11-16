@@ -9,6 +9,7 @@ var targetWave: PackedVector3Array
 @onready var player = get_node("Player")
 @onready var drawer = get_node("WaveDrawer")
 @onready var packages = get_node("Packages")
+@onready var mouths = get_node("Mouths")
 
 var package = preload("res://package.tscn")
 
@@ -49,7 +50,7 @@ const WAVES_UNTIL_CHANGE = 5
 # Glitch variables
 var glitchArray: PackedStringArray
 const GLITCH_ORDER: PackedInt32Array = [0,1,1,2,2,2,3]
-const GLITCH_TYPES: PackedStringArray = ["lerpAmplitude", "lerpWavelength", "lerpOffset"]
+const GLITCH_TYPES: PackedStringArray = ["lerpAmplitude", "lerpWavelength", "lerpOffset", "packageWaveHider", "mouthWaveHider"]
 const LERP_AMOUNT = 0.01
 var numberOfLerps = 0
 
@@ -103,13 +104,11 @@ func _process(_delta: float) -> void:
 	
 	# Mouth positioning
 	handleMouthPositioning()
-	
-	# Glitch handling
-	handleGlitches()
 
 # Decides how complex new target wave should be based on waveCount
+# "How many sets of WAVES_UNTIL_CHANGE have there been?"
 func getInterWaveComplexity() -> int:
-	return 1 + int(float(waveCount) / WAVES_UNTIL_CHANGE)
+	return int(float(waveCount) / WAVES_UNTIL_CHANGE)
 
 # Decides difficulty of spawnQueue
 # Should ramp up between changes in getInterWaveComplexity
@@ -117,7 +116,7 @@ func getIntraWaveComplexity() -> int:
 	return (waveCount % WAVES_UNTIL_CHANGE)
 
 func newTargetWave() -> void:
-	var waves = getInterWaveComplexity()
+	var waves = getInterWaveComplexity() + 1
 	
 	targetWave.clear()
 	var ampSumMax = MAX_AMPLITUDE;
@@ -142,7 +141,7 @@ func newTargetWave() -> void:
 
 func newSpawnQueue() -> void:
 	var intraWaveDifficulty = getIntraWaveComplexity()
-	var interWaveDifficulty = getInterWaveComplexity()
+	var interWaveDifficulty = getInterWaveComplexity() + 1
 	spawnQueue.clear()
 	
 	var spdMult = 1.0 + (0.1 * interWaveDifficulty) + (0.05 * intraWaveDifficulty)
@@ -205,20 +204,29 @@ func newGlitchArray() -> void:
 		if (glitch.contains("lerp")):
 			numberOfLerps += 1
 		glitchArray.append(glitch)
+	handleGlitches()
 
+# Run once after newGlitchArray
 func handleGlitches() -> void:
+	player.resetGlitches()
+	player.lerpAmount = LERP_AMOUNT / (numberOfLerps * numberOfLerps)
+	drawer.resetGlitches()
 	for glitch in glitchArray:
 		match(glitch):
 			"lerpAmplitude":
-				player.lerpAmplitude(LERP_AMOUNT / pow(numberOfLerps, 2))
+				player.lerpAmplitudeGlitch = true
 			"lerpWavelength":
-				player.lerpWavelength(LERP_AMOUNT / pow(numberOfLerps, 2))
+				player.lerpWavelengthGlitch = true
 			"lerpOffset":
-				player.lerpOffset(LERP_AMOUNT / pow(numberOfLerps, 2))
+				player.lerpOffsetGlitch = true
+			"packageWaveHider":
+				drawer.packageGlitch = true
+			"mouthWaveHider":
+				drawer.mouthGlitch = true
 
 func handleMouthPositioning() -> void:
 	var i = 0
-	for mouth in $Mouths.get_children():
+	for mouth in mouths.get_children():
 		var x = drawer.getXBounds().x + 50 + i * 100
 		var y = drawer.getY() + getPlayerFunction(x)
 		mouth.position = Vector2(x,y) + drawer.position
