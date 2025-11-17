@@ -21,6 +21,7 @@ one_shot = true
 material = SubResource("ShaderMaterial_3sf2l")
 offset_right = 1152.0
 offset_bottom = 648.0
+mouse_filter = 2
 color = Color(1, 1, 1, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
