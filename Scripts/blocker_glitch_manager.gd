@@ -19,7 +19,7 @@ func canSpawnBlocker() -> bool:
 	return active and $Timer.is_stopped() and $Blockers.get_child_count() < MAX_BLOCKERS
 
 func resetGlitches() -> void:
-	active = false
+	active = true
 
 func _on_timer_timeout() -> void:
 	var b = blocker.instantiate()
