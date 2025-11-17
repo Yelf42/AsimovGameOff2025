@@ -10,8 +10,9 @@ var targetWave: PackedVector3Array
 @onready var drawer = get_node("WaveDrawer")
 @onready var packages = get_node("Packages")
 @onready var mouths = get_node("Mouths")
+@onready var blocker = get_node("BlockerGlitchManager")
 
-var package = preload("res://package.tscn")
+var package = preload("res://Scenes/package.tscn")
 
 # Sum of amplitudes in targetWave:
 # <= MAX_AMPLITUDE
@@ -50,7 +51,7 @@ const WAVES_UNTIL_CHANGE = 5
 # Glitch variables
 var glitchArray: PackedStringArray
 const GLITCH_ORDER: PackedInt32Array = [0,1,1,2,2,2,3]
-const GLITCH_TYPES: PackedStringArray = ["lerpAmplitude", "lerpWavelength", "lerpOffset", "packageWaveHider", "mouthWaveHider"]
+const GLITCH_TYPES: PackedStringArray = ["lerpAmplitude", "lerpWavelength", "lerpOffset", "packageWaveHider", "mouthWaveHider", "spawnBlockers"]
 const LERP_AMOUNT = 0.01
 var numberOfLerps = 0
 
@@ -211,6 +212,7 @@ func handleGlitches() -> void:
 	player.resetGlitches()
 	player.lerpAmount = LERP_AMOUNT / (numberOfLerps * numberOfLerps)
 	drawer.resetGlitches()
+	blocker.resetGlitches()
 	for glitch in glitchArray:
 		match(glitch):
 			"lerpAmplitude":
@@ -223,6 +225,8 @@ func handleGlitches() -> void:
 				drawer.packageGlitch = true
 			"mouthWaveHider":
 				drawer.mouthGlitch = true
+			"spawnBlockers":
+				blocker.active = true
 
 func handleMouthPositioning() -> void:
 	var i = 0
