@@ -23,6 +23,12 @@ script = ExtResource("2_fj7yv")
 target_line_color = Color(0, 1, 0.01666665, 0.5686275)
 player_line_color = Color(1, 0, 0, 1)
 
+[node name="PlayerWave" type="Node2D" parent="WaveDrawer"]
+position = Vector2(-384, -32)
+
+[node name="TargetWave" type="Node2D" parent="WaveDrawer"]
+position = Vector2(-384, -32)
+
 [node name="Player" parent="." instance=ExtResource("3_tlwt5")]
 position = Vector2(533, 439)
 
