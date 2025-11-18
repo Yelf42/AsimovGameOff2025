@@ -19,7 +19,7 @@ var mouth = preload("res://Scenes/mouth.tscn")
 # <= MAX_AMPLITUDE
 # > MIN_AMPLITUDE
 const MAX_AMPLITUDE = 3
-const MIN_AMPLITUDE = 1
+const MIN_AMPLITUDE = 2
 # Wavelength * Amplitude <= 2.0
 const MAX_WAVELENGTH = 15
 # Offset doesn't need clamping

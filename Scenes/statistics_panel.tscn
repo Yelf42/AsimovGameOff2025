@@ -1,6 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://csv2ctwaq5ext"]
+[gd_scene load_steps=5 format=3 uid="uid://csv2ctwaq5ext"]
 
 [ext_resource type="Script" uid="uid://cg7fbbuq08d8w" path="res://Scripts/statistics_panel.gd" id="1_8ilfu"]
+[ext_resource type="Shader" uid="uid://dj6rppcvicxh1" path="res://Assets/Shaders/screen.gdshader" id="2_2ic41"]
+[ext_resource type="Texture2D" uid="uid://c2qcx0mgfs1pt" path="res://Assets/Textures/grid.png" id="3_07dhq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yjvka"]
+shader = ExtResource("2_2ic41")
+shader_parameter/bg_color = Color(0.6, 0.66, 0.66, 1)
+shader_parameter/GRID = ExtResource("3_07dhq")
+shader_parameter/grid_intesnsity = 0.05
+shader_parameter/grid_resize = Vector2(0.4, 0.25)
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 1.0
 
 [node name="StatisticsPanel" type="Control"]
 layout_mode = 3
@@ -12,6 +23,7 @@ grow_vertical = 2
 script = ExtResource("1_8ilfu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_yjvka")
 layout_mode = 0
 offset_right = 344.0
 offset_bottom = 200.0
