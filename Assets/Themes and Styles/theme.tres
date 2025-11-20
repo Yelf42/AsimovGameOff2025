@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://b0wxdkg8qvafo"]
+
+[ext_resource type="Texture2D" uid="uid://bi6ly26gi0sja" path="res://Assets/Textures/horizontal_slider_grabber.png" id="1_knr1o"]
+[ext_resource type="Texture2D" uid="uid://o4bri38mwdvn" path="res://Assets/Textures/vertical_slider_grabber.png" id="3_knr1o"]
+[ext_resource type="StyleBox" uid="uid://0jv0axlvagsa" path="res://Assets/Themes and Styles/flat_grabber_area.tres" id="4_tc3kd"]
+[ext_resource type="StyleBox" uid="uid://bcp8xgvjmqu7t" path="res://Assets/Themes and Styles/flat_slider_background.tres" id="5_of36w"]
+
+[resource]
+HSlider/constants/center_grabber = 1
+HSlider/icons/grabber = ExtResource("1_knr1o")
+HSlider/icons/grabber_disabled = ExtResource("1_knr1o")
+HSlider/icons/grabber_highlight = ExtResource("1_knr1o")
+HSlider/styles/grabber_area = ExtResource("4_tc3kd")
+HSlider/styles/grabber_area_highlight = ExtResource("4_tc3kd")
+HSlider/styles/slider = ExtResource("5_of36w")
+VSlider/constants/center_grabber = 1
+VSlider/icons/grabber = ExtResource("3_knr1o")
+VSlider/icons/grabber_disabled = ExtResource("3_knr1o")
+VSlider/icons/grabber_highlight = ExtResource("3_knr1o")
+VSlider/styles/grabber_area = ExtResource("4_tc3kd")
+VSlider/styles/grabber_area_highlight = ExtResource("4_tc3kd")
+VSlider/styles/slider = ExtResource("5_of36w")

@@ -11,5 +11,5 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	$WaveCount.text = str(root.waveCount)
 	$TotalDropped.text = str(root.totalPackagesDropped)
-	$DropLimit.text = str(root.dropLimit)
+	$DropLimit.text = str('/', root.dropLimit)
 	$TotalIntercepted.text = str(root.totalPackagesEaten)

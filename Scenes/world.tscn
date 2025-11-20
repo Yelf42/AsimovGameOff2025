@@ -42,7 +42,7 @@ position = Vector2(-384, -32)
 position = Vector2(-384, -32)
 
 [node name="Player" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(533, 439)
+position = Vector2(480, 448)
 
 [node name="Packages" type="Node2D" parent="."]
 
@@ -62,10 +62,10 @@ one_shot = true
 one_shot = true
 
 [node name="StatisticsPanel" parent="." instance=ExtResource("5_k7acu")]
-offset_left = 16.0
-offset_top = 432.0
-offset_right = 16.0
-offset_bottom = 432.0
+offset_left = 32.0
+offset_top = 448.0
+offset_right = 32.0
+offset_bottom = 448.0
 
 [node name="BlockerGlitchManager" parent="." instance=ExtResource("5_5v1tr")]
 

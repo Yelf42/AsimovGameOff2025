@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dn8if565u2iar"]
+
+[ext_resource type="FontFile" uid="uid://bxwy37ht2wg3o" path="res://Assets/Themes and Styles/DSEG14Classic-Regular.ttf" id="1_baley"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pufh4"]
+bg_color = Color(0, 0.12, 0.089999996, 1)
+expand_margin_left = 5.0
+expand_margin_top = 10.0
+expand_margin_right = 5.0
+expand_margin_bottom = 10.0
+
+[resource]
+Label/colors/font_color = Color(0, 0.84, 0.7139999, 1)
+Label/colors/font_outline_color = Color(0, 0.58, 0.49299994, 1)
+Label/constants/outline_size = 5
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("1_baley")
+Label/styles/normal = SubResource("StyleBoxFlat_pufh4")

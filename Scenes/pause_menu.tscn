@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddj7e6ybpskb4"]
+[gd_scene load_steps=3 format=3 uid="uid://ddj7e6ybpskb4"]
 
 [ext_resource type="Script" uid="uid://dqwwxa8sganml" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_k0w1u"]
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -40,6 +41,7 @@ alignment = 1
 [node name="Resume" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("2_k0w1u")
 text = "RESUME"
 
 [node name="PADDING" type="ColorRect" parent="VBoxContainer"]
@@ -50,14 +52,16 @@ color = Color(1, 1, 1, 0)
 [node name="MainMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("2_k0w1u")
 text = "MAIN MENU"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 528.0
-offset_top = 112.0
-offset_right = 624.0
-offset_bottom = 135.0
+offset_left = 472.0
+offset_top = 104.0
+offset_right = 676.0
+offset_bottom = 154.0
+theme = ExtResource("2_k0w1u")
 text = "PAUSE"
 horizontal_alignment = 1
 

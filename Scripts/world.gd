@@ -13,7 +13,7 @@ var targetWave: PackedVector3Array
 @onready var blocker = get_node("BlockerGlitchManager")
 
 var package = preload("res://Scenes/package.tscn")
-var mouth = preload("res://Scenes/mouth.tscn")
+var mth = preload("res://Scenes/mouth.tscn")
 
 # Sum of amplitudes in targetWave:
 # <= MAX_AMPLITUDE
@@ -92,17 +92,17 @@ func _process(_delta: float) -> void:
 		var oldWaveComplexity = getInterWaveComplexity()
 		waveCount += 1
 		if (waveCount == 3 or waveCount == 7):
-			var nm = mouth.instantiate()
+			var nm = mth.instantiate()
 			mouths.add_child(nm)
 		var newWaveComplexity = getInterWaveComplexity()
 		if (oldWaveComplexity != newWaveComplexity):
+			dropLimit += 2
 			newGlitchArray()
-			
+		
 		newTargetWave()
 		newSpawnQueue()
 		
 		$Transition.start(0.5 + 3.0 * pow(0.8, newWaveComplexity))
-		dropLimit += 1
 	
 	if (totalPackagesDropped > dropLimit):
 		gameOver()

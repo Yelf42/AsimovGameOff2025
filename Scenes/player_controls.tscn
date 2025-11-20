@@ -1,23 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://suufrxtls4xf"]
+[gd_scene load_steps=3 format=3 uid="uid://suufrxtls4xf"]
 
 [ext_resource type="Script" uid="uid://dmqlm0rmtjc07" path="res://Scripts/player_controls.gd" id="1_4flbx"]
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_j4x5a"]
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_4flbx")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
-clip_contents = true
-offset_right = 461.0
+offset_right = 552.0
 offset_bottom = 172.0
 size_flags_horizontal = 3
 alignment = 1
 
 [node name="Amplitude" type="VSlider" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 1
+theme = ExtResource("2_j4x5a")
 min_value = -3.0
 max_value = 3.0
 step = 0.001
+
+[node name="PADDING" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.21
+color = Color(1, 1, 1, 0)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -27,6 +34,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_j4x5a")
 min_value = 0.5
 max_value = 3.0
 step = 0.001
@@ -36,6 +44,7 @@ value = 1.5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("2_j4x5a")
 max_value = 12.0
 step = 0.001
 value = 5.0

@@ -1,6 +1,50 @@
-[gd_scene load_steps=2 format=3 uid="uid://r4ytomf7hl16"]
+[gd_scene load_steps=9 format=3 uid="uid://r4ytomf7hl16"]
 
 [ext_resource type="Script" uid="uid://3233o4fox5q2" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://daanu5tcd6nt8" path="res://Assets/Textures/cutscene_placeholder.png" id="2_48xlc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ehe0"]
+atlas = ExtResource("2_48xlc")
+region = Rect2(0, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ce3w2"]
+atlas = ExtResource("2_48xlc")
+region = Rect2(1152, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n45e2"]
+atlas = ExtResource("2_48xlc")
+region = Rect2(2304, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opfnp"]
+atlas = ExtResource("2_48xlc")
+region = Rect2(3456, 0, 1152, 648)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cp0ys"]
+atlas = ExtResource("2_48xlc")
+region = Rect2(4608, 0, 1152, 648)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yhxw7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ehe0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ce3w2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n45e2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opfnp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cp0ys")
+}],
+"loop": false,
+"name": &"Cutscene",
+"speed": 1.0
+}]
 
 [node name="MainMenu" type="Control"]
 process_mode = 3
@@ -46,4 +90,20 @@ offset_bottom = 143.0
 text = "MAIN MENU"
 horizontal_alignment = 1
 
+[node name="CutscenePlayer" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(576, 325)
+sprite_frames = SubResource("SpriteFrames_yhxw7")
+animation = &"Cutscene"
+
+[node name="Label" type="Label" parent="CutscenePlayer"]
+offset_left = 424.0
+offset_top = 283.0
+offset_right = 576.0
+offset_bottom = 323.0
+text = "Press ESC to skip"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="animation_finished" from="CutscenePlayer" to="." method="_on_cutscene_player_animation_finished"]
