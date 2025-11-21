@@ -1,8 +1,8 @@
 extends ColorRect
 
-const WAVE_RESOLUTION = 500;
+const PLAYER_WAVE_RESOLUTION = 500;
+const TARGET_WAVE_RESOLUTION = 900;
 
-var gap
 var mid
 var root
 @export var target_line_color: Color
@@ -19,20 +19,20 @@ var circle = preload("res://Scenes/circle.tscn")
 func _ready() -> void:
 	root = get_tree().current_scene
 	mid = self.size/2
-	gap = (2*mid.x - 2*(mid.x/3)) / WAVE_RESOLUTION
-	for i in range(WAVE_RESOLUTION):
+	for i in range(PLAYER_WAVE_RESOLUTION):
 		$PlayerWave.add_child(circle.instantiate())
+	for i in range(TARGET_WAVE_RESOLUTION):
 		$TargetWave.add_child(circle.instantiate())
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	drawPlayerWave()
-	drawTargetWave()
 
 # Draw player
 func drawPlayerWave() -> void:
-	for i in range(WAVE_RESOLUTION):
+	var gap = (2*mid.x - 2*(mid.x/3)) / PLAYER_WAVE_RESOLUTION
+	for i in range(PLAYER_WAVE_RESOLUTION):
 		var d1x = mid.x/3 + (gap*i)
 		var d1y = mid.y + root.getPlayerFunction(d1x)
 		var d1xy = Vector2(d1x,d1y) + self.position
@@ -50,7 +50,8 @@ func drawPlayerWave() -> void:
 
 # Draw player
 func drawTargetWave() -> void:
-	for i in range(WAVE_RESOLUTION):
+	var gap = (2*mid.x - 2*(mid.x/3)) / TARGET_WAVE_RESOLUTION
+	for i in range(TARGET_WAVE_RESOLUTION):
 		var d1x = mid.x/3 + (gap*i)
 		var d1y = mid.y + root.getTargetFunction(d1x)
 		var d1xy = Vector2(d1x,d1y) + self.position
@@ -67,7 +68,8 @@ func drawTargetWave() -> void:
 		$TargetWave.get_child(i).modulate = col
 
 func getXBounds() -> Vector2:
-	return Vector2(mid.x / 3, mid.x/3 + (gap*(WAVE_RESOLUTION+1)))
+	var gap = (2*mid.x - 2*(mid.x/3))
+	return Vector2(mid.x / 3, mid.x / 3 + gap)
 
 func getY() -> float:
 	return mid.y;

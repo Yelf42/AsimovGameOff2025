@@ -85,6 +85,7 @@ func startGame() -> void:
 	# Unpause and begin
 	$Transition.start()
 	get_tree().paused = false
+	drawer.drawTargetWave()
 
 func _process(_delta: float) -> void:
 	# New wave, new spawnQueue
@@ -103,6 +104,7 @@ func _process(_delta: float) -> void:
 		newSpawnQueue()
 		
 		$Transition.start(0.5 + 3.0 * pow(0.8, newWaveComplexity))
+		drawer.drawTargetWave()
 	
 	if (totalPackagesDropped > dropLimit):
 		gameOver()

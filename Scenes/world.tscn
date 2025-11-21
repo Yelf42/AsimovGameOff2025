@@ -24,6 +24,11 @@ shader_parameter/vignette_opacity = 0.4370000207575
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
 
+[node name="Background" type="ColorRect" parent="."]
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.8784314, 0.6509804, 0.6862745, 1)
+
 [node name="WaveDrawer" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_ikia7")
 offset_left = 384.0
@@ -42,7 +47,7 @@ position = Vector2(-384, -32)
 position = Vector2(-384, -32)
 
 [node name="Player" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(480, 448)
+position = Vector2(469, 394)
 
 [node name="Packages" type="Node2D" parent="."]
 
