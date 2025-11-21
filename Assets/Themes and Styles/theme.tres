@@ -7,14 +7,14 @@
 [ext_resource type="StyleBox" uid="uid://bluv0q1rapt40" path="res://Assets/Themes and Styles/flat_vertical_slider_background.tres" id="5_tc3kd"]
 
 [resource]
-HSlider/constants/center_grabber = 1
+HSlider/constants/center_grabber = 0
 HSlider/icons/grabber = ExtResource("1_knr1o")
 HSlider/icons/grabber_disabled = ExtResource("1_knr1o")
 HSlider/icons/grabber_highlight = ExtResource("1_knr1o")
 HSlider/styles/grabber_area = ExtResource("4_tc3kd")
 HSlider/styles/grabber_area_highlight = ExtResource("4_tc3kd")
 HSlider/styles/slider = ExtResource("5_of36w")
-VSlider/constants/center_grabber = 1
+VSlider/constants/center_grabber = 0
 VSlider/icons/grabber = ExtResource("3_knr1o")
 VSlider/icons/grabber_disabled = ExtResource("3_knr1o")
 VSlider/icons/grabber_highlight = ExtResource("3_knr1o")

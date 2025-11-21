@@ -1,7 +1,7 @@
 extends Panel
 
 const PLAYER_WAVE_RESOLUTION = 600;
-const TARGET_WAVE_RESOLUTION = 900;
+const TARGET_WAVE_RESOLUTION = 1500;
 
 var mid
 var root

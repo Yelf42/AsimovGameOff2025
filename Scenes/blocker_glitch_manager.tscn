@@ -1,10 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dedmpeebt8dwr"]
 
 [ext_resource type="Script" uid="uid://d1t3nd8u6lise" path="res://Scripts/blocker_glitch_manager.gd" id="1_h5hmu"]
-[ext_resource type="Shader" uid="uid://dedh6dwcx6pbg" path="res://Assets/Shaders/blocker_glitch_outline.gdshader" id="2_r7x6s"]
+[ext_resource type="Shader" uid="uid://dedh6dwcx6pbg" path="res://Assets/Shaders/blocker_glitch.gdshader" id="2_r7x6s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3sf2l"]
 shader = ExtResource("2_r7x6s")
+shader_parameter/outline_color = Color(0, 0.91764706, 1, 1)
+shader_parameter/inside_color1 = Color(0, 0.61416656, 0.67, 1)
+shader_parameter/inside_color2 = Color(0, 0.84, 0.74200004, 1)
 shader_parameter/resolution = Vector2(1152, 648)
 shader_parameter/numBlockers = 5
 shader_parameter/blockerData = PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)

@@ -1,7 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://suufrxtls4xf"]
+[gd_scene load_steps=7 format=3 uid="uid://suufrxtls4xf"]
 
 [ext_resource type="Script" uid="uid://dmqlm0rmtjc07" path="res://Scripts/player_controls.gd" id="1_4flbx"]
+[ext_resource type="Texture2D" uid="uid://cioan2mn8rthe" path="res://Assets/Textures/spark.png" id="2_j2jf7"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_j4x5a"]
+[ext_resource type="Texture2D" uid="uid://o4bri38mwdvn" path="res://Assets/Textures/vertical_slider_grabber.png" id="4_bne1u"]
+[ext_resource type="Texture2D" uid="uid://bi6ly26gi0sja" path="res://Assets/Textures/horizontal_slider_grabber.png" id="5_pl3xe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4x5a"]
 bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
@@ -63,6 +66,54 @@ theme = ExtResource("2_j4x5a")
 max_value = 12.0
 step = 0.001
 value = 5.0
+
+[node name="AmplitudeEmitter" type="CPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("2_j2jf7")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.31
+initial_velocity_max = 72.16
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color = Color(0, 0.91764706, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="AmplitudeEmitter"]
+texture = ExtResource("4_bne1u")
+
+[node name="WavelengthEmitter" type="CPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("2_j2jf7")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.31
+initial_velocity_max = 72.16
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color = Color(0, 0.9166665, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="WavelengthEmitter"]
+texture = ExtResource("5_pl3xe")
+
+[node name="OffsetEmitter" type="CPUParticles2D" parent="."]
+emitting = false
+texture = ExtResource("2_j2jf7")
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.31
+initial_velocity_max = 72.16
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_min = 0.01
+scale_amount_max = 0.03
+color = Color(0, 0.9166665, 1, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="OffsetEmitter"]
+texture = ExtResource("5_pl3xe")
 
 [connection signal="drag_ended" from="HBoxContainer/Amplitude" to="." method="_on_amplitude_drag_ended"]
 [connection signal="drag_started" from="HBoxContainer/Amplitude" to="." method="_on_amplitude_drag_started"]
