@@ -5,8 +5,6 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4x5a"]
 bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 shadow_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
@@ -17,9 +15,9 @@ shadow_offset = Vector2(0, 19.98)
 script = ExtResource("1_4flbx")
 
 [node name="Panel" type="Panel" parent="."]
-offset_left = -40.0
-offset_top = -48.0
-offset_right = 608.0
+offset_left = -80.0
+offset_top = -32.0
+offset_right = 658.0
 offset_bottom = 216.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_j4x5a")
 

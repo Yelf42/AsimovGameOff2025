@@ -1,6 +1,6 @@
-extends ColorRect
+extends Panel
 
-const PLAYER_WAVE_RESOLUTION = 500;
+const PLAYER_WAVE_RESOLUTION = 600;
 const TARGET_WAVE_RESOLUTION = 900;
 
 var mid

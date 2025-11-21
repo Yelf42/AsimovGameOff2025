@@ -1,7 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://od5m3mfkfi2x"]
+[gd_scene load_steps=16 format=3 uid="uid://od5m3mfkfi2x"]
 
 [ext_resource type="Script" uid="uid://bp65uwyt41lk5" path="res://Scripts/world.gd" id="1_f3sb7"]
-[ext_resource type="Shader" uid="uid://dj6rppcvicxh1" path="res://Assets/Shaders/screen.gdshader" id="2_0fj1v"]
+[ext_resource type="Shader" uid="uid://dj6rppcvicxh1" path="res://Assets/Shaders/grid.gdshader" id="2_0fj1v"]
 [ext_resource type="PackedScene" uid="uid://ddj7e6ybpskb4" path="res://Scenes/pause_menu.tscn" id="2_036b0"]
 [ext_resource type="Script" uid="uid://bhey0do1jn2ns" path="res://Scripts/wave_drawer.gd" id="2_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://b857xudrtc2oo" path="res://Assets/Textures/marked_grid.png" id="3_ikia7"]
@@ -12,14 +12,38 @@
 [ext_resource type="PackedScene" uid="uid://r4ytomf7hl16" path="res://Scenes/main_menu.tscn" id="6_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://7iqa37rxi25j" path="res://Scenes/game_over_menu.tscn" id="7_o06y3"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v1tr"]
+bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+shadow_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fj1v"]
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0.37, 0.185, 0.25283337, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, -15.105)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ikia7"]
 shader = ExtResource("2_0fj1v")
-shader_parameter/bg_color = Color(0.6015301, 0.66736174, 0.6631649, 1)
+shader_parameter/bg_colour = Color(0.078431375, 0.078431375, 0.078431375, 1)
+shader_parameter/grid_colour = Color(0.125, 0.25, 0.24375, 1)
 shader_parameter/GRID = ExtResource("3_ikia7")
-shader_parameter/grid_intesnsity = 0.05
-shader_parameter/grid_resize = Vector2(0.5, 0.25)
-shader_parameter/vignette_intensity = 1.0
-shader_parameter/vignette_opacity = 0.4370000207575
+shader_parameter/grid_resize = Vector2(0.645, 0.26)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7yui6"]
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0.14117648, 0.14117648, 0.14117648, 1)
+shadow_offset = Vector2(0, -15.105)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
@@ -28,17 +52,32 @@ script = ExtResource("1_f3sb7")
 offset_right = 1152.0
 offset_bottom = 648.0
 color = Color(0.8784314, 0.6509804, 0.6862745, 1)
+metadata/_edit_lock_ = true
 
-[node name="WaveDrawer" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_ikia7")
+[node name="WaveDrawer" type="Panel" parent="."]
 offset_left = 384.0
 offset_top = 32.0
 offset_right = 1122.0
-offset_bottom = 417.0
-color = Color(0, 0, 0, 0)
+offset_bottom = 379.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_5v1tr")
 script = ExtResource("2_fj7yv")
 target_line_color = Color(0, 1, 0.01666665, 0.5686275)
 player_line_color = Color(1, 0, 0, 1)
+
+[node name="Panel" type="Panel" parent="WaveDrawer"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 688.0
+offset_bottom = 328.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_0fj1v")
+
+[node name="Grid" type="Panel" parent="WaveDrawer/Panel"]
+material = SubResource("ShaderMaterial_ikia7")
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 280.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7yui6")
 
 [node name="PlayerWave" type="Node2D" parent="WaveDrawer"]
 position = Vector2(-384, -32)
@@ -47,11 +86,13 @@ position = Vector2(-384, -32)
 position = Vector2(-384, -32)
 
 [node name="Player" parent="." instance=ExtResource("3_tlwt5")]
-position = Vector2(469, 394)
+position = Vector2(464, 392)
 
 [node name="Packages" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Mouths" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="Mouth" parent="Mouths" instance=ExtResource("4_aqk2v")]
 position = Vector2(1098, 365)
@@ -71,13 +112,16 @@ offset_left = 32.0
 offset_top = 448.0
 offset_right = 32.0
 offset_bottom = 448.0
+metadata/_edit_lock_ = true
 
 [node name="BlockerGlitchManager" parent="." instance=ExtResource("5_5v1tr")]
+metadata/_edit_lock_ = true
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_036b0")]
 visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
+metadata/_edit_lock_ = true
 
 [node name="MainMenu" parent="." instance=ExtResource("6_5ukr8")]
 visible = false
@@ -88,11 +132,13 @@ offset_right = 1152.0
 offset_bottom = 648.0
 grow_horizontal = 1
 grow_vertical = 1
+metadata/_edit_lock_ = true
 
 [node name="GameOverMenu" parent="." instance=ExtResource("7_o06y3")]
 visible = false
 offset_right = 1152.0
 offset_bottom = 648.0
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Transition" to="." method="_on_transition_timeout"]
 [connection signal="timeout" from="WaveStartDelay" to="." method="_on_wave_start_delay_timeout"]
