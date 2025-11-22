@@ -60,7 +60,7 @@ func lerpAmplitude(t: float = 0.01) -> void:
 	if (!canEditAmplitude): return
 	$AmplitudeEmitter.emitting = true
 	var xyz = getSliderCenters()
-	amplitude.value = move_toward(amplitude.value, xyz.x, t)
+	amplitude.value = move_toward(amplitude.value, xyz.x + 1.0, t)
 
 func lerpWavelength(t: float = 0.01) -> void:
 	if (!canEditWavelength): return

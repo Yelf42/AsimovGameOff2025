@@ -159,12 +159,12 @@ func newSpawnQueue() -> void:
 	for i in range(numPacks):
 		var numPackages = floor(10.0 * log(0.2 * interWaveDifficulty + 1.0)) + randi_range(1, 1 + intraWaveDifficulty)
 		if (i == 0):
-			spawnQueue.append(PackagePack.new(0,0.3, generateStandard(numPackages, 1, 1.1 * spdMult)))
+			spawnQueue.append(PackagePack.new(0,0.6, generateStandard(numPackages, 1, 1.1 * spdMult)))
 			continue
 		if (randf() < 0.6):
-			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAscending(numPackages, maxHP, spdMult)))
+			spawnQueue.append(PackagePack.new(randf_range(0.4 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAscending(numPackages, maxHP, spdMult)))
 		else:
-			spawnQueue.append(PackagePack.new(randf_range(0.2 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAlternating(numPackages, maxHP, spdMult)))
+			spawnQueue.append(PackagePack.new(randf_range(0.4 + pow(0.9,interWaveDifficulty+1), 1.0), randf_range(0.1 + pow(0.9,interWaveDifficulty+1), 1.0), generateAlternating(numPackages, maxHP, spdMult)))
 	
 	waveIndex = 0
 
