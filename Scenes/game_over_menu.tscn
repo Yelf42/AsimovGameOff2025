@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://7iqa37rxi25j"]
+[gd_scene load_steps=7 format=3 uid="uid://7iqa37rxi25j"]
 
 [ext_resource type="Script" uid="uid://bwy3tvumkjl5r" path="res://Scripts/game_over_menu.gd" id="1_arass"]
 [ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_i22rp"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="3_dsdey"]
+[ext_resource type="PackedScene" uid="uid://csv2ctwaq5ext" path="res://Scenes/statistics_panel.tscn" id="4_eqaa1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dsdey"]
 shader = ExtResource("2_i22rp")
@@ -97,12 +98,21 @@ text = "GAME OVER"
 horizontal_alignment = 1
 
 [node name="StatsBacking" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 384.0
 offset_top = 128.0
 offset_right = 768.0
 offset_bottom = 336.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_dsdey")
+
+[node name="StatisticsPanel" parent="." instance=ExtResource("4_eqaa1")]
+layout_mode = 1
+offset_left = 400.0
+offset_top = 144.0
+offset_right = -400.0
+offset_bottom = -312.0
+mouse_filter = 2
 
 [connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

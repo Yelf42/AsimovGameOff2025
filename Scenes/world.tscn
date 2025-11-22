@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://od5m3mfkfi2x"]
+[gd_scene load_steps=17 format=3 uid="uid://od5m3mfkfi2x"]
 
 [ext_resource type="Script" uid="uid://bp65uwyt41lk5" path="res://Scripts/world.gd" id="1_f3sb7"]
 [ext_resource type="Shader" uid="uid://dj6rppcvicxh1" path="res://Assets/Shaders/grid.gdshader" id="2_0fj1v"]
@@ -11,6 +11,12 @@
 [ext_resource type="PackedScene" uid="uid://csv2ctwaq5ext" path="res://Scenes/statistics_panel.tscn" id="5_k7acu"]
 [ext_resource type="PackedScene" uid="uid://r4ytomf7hl16" path="res://Scenes/main_menu.tscn" id="6_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://7iqa37rxi25j" path="res://Scenes/game_over_menu.tscn" id="7_o06y3"]
+
+[sub_resource type="Environment" id="Environment_ikia7"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 0.64
+glow_bloom = 0.25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v1tr"]
 bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
@@ -47,6 +53,9 @@ shadow_offset = Vector2(0, -15.105)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ikia7")
 
 [node name="Background" type="ColorRect" parent="."]
 offset_right = 1152.0
@@ -108,10 +117,10 @@ one_shot = true
 one_shot = true
 
 [node name="StatisticsPanel" parent="." instance=ExtResource("5_k7acu")]
-offset_left = 32.0
-offset_top = 448.0
-offset_right = 32.0
-offset_bottom = 448.0
+offset_left = 16.0
+offset_top = 416.0
+offset_right = 16.0
+offset_bottom = 416.0
 metadata/_edit_lock_ = true
 
 [node name="BlockerGlitchManager" parent="." instance=ExtResource("5_5v1tr")]

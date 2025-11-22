@@ -1,7 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://csv2ctwaq5ext"]
+[gd_scene load_steps=5 format=3 uid="uid://csv2ctwaq5ext"]
 
 [ext_resource type="Script" uid="uid://cg7fbbuq08d8w" path="res://Scripts/statistics_panel.gd" id="1_8ilfu"]
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_2ic41"]
 [ext_resource type="Theme" uid="uid://dn8if565u2iar" path="res://Assets/Themes and Styles/segment_display.tres" id="2_p1i15"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p1i15"]
+bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+shadow_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 17.505)
 
 [node name="StatisticsPanel" type="Control"]
 layout_mode = 3
@@ -10,78 +21,85 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_8ilfu")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 352.0
+offset_bottom = 192.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_p1i15")
 
 [node name="Non-VariableLabels" type="Control" parent="."]
 anchors_preset = 0
+offset_top = 16.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 56.0
 
 [node name="Label" type="Label" parent="Non-VariableLabels"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 16.0
-offset_right = 118.0
-offset_bottom = 39.0
-text = "WaveCount:"
+offset_right = 168.0
+offset_bottom = 44.0
+theme = ExtResource("2_2ic41")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 27
+text = "WaveCount :"
 horizontal_alignment = 2
 
 [node name="Label2" type="Label" parent="Non-VariableLabels"]
 layout_mode = 0
-offset_left = 24.0
-offset_top = 72.0
-offset_right = 118.0
-offset_bottom = 95.0
-text = "Drops:"
+offset_left = 8.0
+offset_top = 128.0
+offset_right = 168.0
+offset_bottom = 156.0
+theme = ExtResource("2_2ic41")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 27
+text = "DROPPED :"
 horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="Non-VariableLabels"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 128.0
-offset_right = 120.0
-offset_bottom = 151.0
-text = "Intercepted:"
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 168.0
+offset_bottom = 104.0
+theme = ExtResource("2_2ic41")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 28
+text = "Intercepted :"
 horizontal_alignment = 2
 
 [node name="WaveCount" type="Label" parent="."]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 16.0
-offset_right = 296.0
-offset_bottom = 40.0
+offset_left = 184.0
+offset_top = 32.0
+offset_right = 328.0
+offset_bottom = 56.0
 theme = ExtResource("2_p1i15")
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="TotalDropped" type="Label" parent="."]
+[node name="Dropped" type="Label" parent="."]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 72.0
-offset_right = 224.0
-offset_bottom = 96.0
-theme = ExtResource("2_p1i15")
-text = "0"
-horizontal_alignment = 2
-vertical_alignment = 1
-
-[node name="DropLimit" type="Label" parent="."]
-layout_mode = 0
-offset_left = 232.0
-offset_top = 72.0
-offset_right = 296.0
-offset_bottom = 96.0
+offset_left = 184.0
+offset_top = 144.0
+offset_right = 328.0
+offset_bottom = 168.0
 theme = ExtResource("2_p1i15")
 text = "/10"
+horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="TotalIntercepted" type="Label" parent="."]
 layout_mode = 0
-offset_left = 128.0
-offset_top = 128.0
-offset_right = 296.0
-offset_bottom = 152.0
+offset_left = 184.0
+offset_top = 88.0
+offset_right = 328.0
+offset_bottom = 112.0
 theme = ExtResource("2_p1i15")
 text = "0"
 horizontal_alignment = 2

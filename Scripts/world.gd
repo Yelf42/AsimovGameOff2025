@@ -21,7 +21,7 @@ var mth = preload("res://Scenes/mouth.tscn")
 const MAX_AMPLITUDE = 3
 const MIN_AMPLITUDE = 2
 # Wavelength * Amplitude <= 2.0
-const MAX_WAVELENGTH = 15
+const MAX_WAVELENGTH = 12
 # Offset doesn't need clamping
 
 # Score trackers
@@ -97,7 +97,7 @@ func _process(_delta: float) -> void:
 			mouths.add_child(nm)
 		var newWaveComplexity = getInterWaveComplexity()
 		if (oldWaveComplexity != newWaveComplexity):
-			dropLimit += 2
+			dropLimit = min(99, dropLimit + 1)
 			newGlitchArray()
 		
 		newTargetWave()
@@ -135,7 +135,7 @@ func newTargetWave() -> void:
 		ampSumMax -= newWave.x
 		
 		# Wavelength
-		newWave.y = min(randf_range(1.0, 2.0 / newWave.x), MAX_WAVELENGTH)
+		newWave.y = min(randf_range(1.0, 1.0 / newWave.x), MAX_WAVELENGTH)
 		
 		# Offset
 		newWave.z = randf_range(-10, 10)

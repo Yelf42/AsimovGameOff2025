@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://btrydsx5evx1"]
+[gd_scene load_steps=4 format=3 uid="uid://btrydsx5evx1"]
 
 [ext_resource type="Script" uid="uid://cc08t1pq4kis7" path="res://Scripts/mouth.gd" id="1_hqyff"]
+[ext_resource type="Texture2D" uid="uid://bn1a8f2hpu2nj" path="res://Assets/Textures/path20.png" id="2_emde0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqyff"]
 size = Vector2(6.5, 46.875)
@@ -13,5 +14,10 @@ script = ExtResource("1_hqyff")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_hqyff")
 debug_color = Color(0.70211506, 0.48539996, 0.07146513, 0.39215687)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.88, 0.50526667, 0.23759998, 1)
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("2_emde0")
 
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

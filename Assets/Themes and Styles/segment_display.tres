@@ -2,17 +2,24 @@
 
 [ext_resource type="FontFile" uid="uid://bxwy37ht2wg3o" path="res://Assets/Themes and Styles/DSEG14Classic-Regular.ttf" id="1_baley"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pufh4"]
-bg_color = Color(0, 0.12, 0.089999996, 1)
-expand_margin_left = 5.0
-expand_margin_top = 10.0
-expand_margin_right = 5.0
-expand_margin_bottom = 10.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_baley"]
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 8.0
+expand_margin_top = 8.0
+expand_margin_right = 8.0
+expand_margin_bottom = 8.0
+shadow_color = Color(0.37, 0.185, 0.25283337, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, -7.305)
 
 [resource]
 Label/colors/font_color = Color(0, 0.84, 0.7139999, 1)
 Label/colors/font_outline_color = Color(0, 0.58, 0.49299994, 1)
-Label/constants/outline_size = 5
+Label/constants/outline_size = 2
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("1_baley")
-Label/styles/normal = SubResource("StyleBoxFlat_pufh4")
+Label/styles/normal = SubResource("StyleBoxFlat_baley")
