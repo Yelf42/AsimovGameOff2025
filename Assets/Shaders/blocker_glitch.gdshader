@@ -2,8 +2,7 @@ shader_type canvas_item;
 
 uniform vec4 outline_color: source_color = vec4(0.6, 0.66, 0.66, 1.0);
 
-uniform vec4 inside_color1: source_color = vec4(0.6, 0.66, 0.66, 1.0);
-uniform vec4 inside_color2: source_color = vec4(0.6, 0.66, 0.66, 1.0);
+uniform float steps = 3.0;
 
 uniform vec2 resolution = vec2(1152, 648);
 uniform int numBlockers;
@@ -63,14 +62,8 @@ void fragment() {
 		COLOR = vec4(outline_color.rgb, in_band);
 	} else {
 		// Inside
-		// Vector noise, rounded to closest third
-		float shade = floor(iqnoise(UV * 20.0 * (resolution.x / resolution.y), 1.0, 0.0) * 4.0) / 4.0;
-		vec3 inside_col = outline_color.rgb;
-		if (shade < 0.3) {
-			inside_col = inside_color1.rgb;
-		} else if (shade < 0.6) {
-			inside_col = inside_color2.rgb;
-		}
-		COLOR = vec4(inside_col, in_band);
+		float shade = floor(iqnoise(UV * 20.0 * (resolution.x / resolution.y), 1.0, 0.0) * steps) / steps;
+		shade += 1.0 / steps;
+		COLOR = vec4(outline_color.rgb, shade);
 	}
 }

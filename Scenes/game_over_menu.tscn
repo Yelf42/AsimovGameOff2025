@@ -1,6 +1,21 @@
-[gd_scene load_steps=2 format=3 uid="uid://7iqa37rxi25j"]
+[gd_scene load_steps=6 format=3 uid="uid://7iqa37rxi25j"]
 
 [ext_resource type="Script" uid="uid://bwy3tvumkjl5r" path="res://Scripts/game_over_menu.gd" id="1_arass"]
+[ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_i22rp"]
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="3_dsdey"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dsdey"]
+shader = ExtResource("2_i22rp")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dsdey"]
+bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+shadow_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 20.75)
 
 [node name="GameOverMenu" type="Control"]
 process_mode = 3
@@ -12,14 +27,28 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_arass")
 
-[node name="GameOverPostProcess" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0.19, 0.19, 0.19, 0.78431374)
+
+[node name="PausedPostProcess" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_dsdey")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 0.14999998, 0.14999998, 0.27450982)
+color = Color(1, 0.14999998, 0.14999998, 0)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = 320.0
+offset_right = 832.0
+offset_bottom = 648.0
+color = Color(0.8784314, 0.6509804, 0.6862745, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -28,48 +57,52 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -152.0
-offset_top = -60.0
-offset_right = 148.0
-offset_bottom = 240.0
+offset_left = -88.0
+offset_top = 60.0
+offset_right = 88.0
+offset_bottom = 268.0
 grow_horizontal = 2
 grow_vertical = 2
-pivot_offset = Vector2(150, 150)
 alignment = 1
-
-[node name="PADDING3" type="ColorRect" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(1, 1, 1, 0)
-
-[node name="PADDING2" type="ColorRect" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-color = Color(1, 1, 1, 0)
 
 [node name="Retry" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.78
+theme = ExtResource("3_dsdey")
 text = "RETRY"
 
 [node name="PADDING" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+size_flags_stretch_ratio = 0.38
 color = Color(1, 1, 1, 0)
 
 [node name="MainMenu" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "MAIN MENU"
+size_flags_stretch_ratio = 0.78
+theme = ExtResource("3_dsdey")
+text = "MAIN
+MENU"
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 528.0
-offset_top = 112.0
-offset_right = 624.0
-offset_bottom = 135.0
+offset_left = 408.0
+offset_top = 48.0
+offset_right = 744.0
+offset_bottom = 119.0
+theme = ExtResource("3_dsdey")
 text = "GAME OVER"
 horizontal_alignment = 1
+
+[node name="StatsBacking" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 128.0
+offset_right = 768.0
+offset_bottom = 336.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dsdey")
 
 [connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://r4ytomf7hl16"]
+[gd_scene load_steps=10 format=3 uid="uid://r4ytomf7hl16"]
 
 [ext_resource type="Script" uid="uid://3233o4fox5q2" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://daanu5tcd6nt8" path="res://Assets/Textures/cutscene_placeholder.png" id="2_48xlc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ehe0"]
@@ -79,15 +80,17 @@ offset_left = 496.0
 offset_top = 280.0
 offset_right = 656.0
 offset_bottom = 360.0
+theme = ExtResource("2_1ehe0")
 text = "Play"
 
-[node name="Label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 0
-offset_left = 528.0
-offset_top = 120.0
-offset_right = 624.0
-offset_bottom = 143.0
-text = "MAIN MENU"
+offset_left = 304.0
+offset_top = 128.0
+offset_right = 849.0
+offset_bottom = 199.0
+theme = ExtResource("2_1ehe0")
+text = "TITLE OF THE GAME"
 horizontal_alignment = 1
 
 [node name="CutscenePlayer" type="AnimatedSprite2D" parent="."]
@@ -97,10 +100,13 @@ sprite_frames = SubResource("SpriteFrames_yhxw7")
 animation = &"Cutscene"
 
 [node name="Label" type="Label" parent="CutscenePlayer"]
-offset_left = 424.0
-offset_top = 283.0
-offset_right = 576.0
-offset_bottom = 323.0
+offset_left = 248.0
+offset_top = 267.0
+offset_right = 563.0
+offset_bottom = 309.0
+theme = ExtResource("2_1ehe0")
+theme_override_colors/font_color = Color(0.8784314, 0.6509804, 0.6862745, 1)
+theme_override_font_sizes/font_size = 42
 text = "Press ESC to skip"
 horizontal_alignment = 1
 vertical_alignment = 1
