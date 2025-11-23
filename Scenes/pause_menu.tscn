@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://ddj7e6ybpskb4"]
+[gd_scene load_steps=6 format=3 uid="uid://ddj7e6ybpskb4"]
 
 [ext_resource type="Script" uid="uid://dqwwxa8sganml" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
 [ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_1och7"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_k0w1u"]
+[ext_resource type="Script" uid="uid://doqtuarp6f848" path="res://Scripts/button_sfx.gd" id="4_bpi0q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpi0q"]
 shader = ExtResource("2_1och7")
@@ -60,6 +61,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme = ExtResource("2_k0w1u")
 text = "RESUME"
+script = ExtResource("4_bpi0q")
 
 [node name="PADDING" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -73,6 +75,7 @@ size_flags_stretch_ratio = 1.44
 theme = ExtResource("2_k0w1u")
 text = "MAIN
 MENU"
+script = ExtResource("4_bpi0q")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0

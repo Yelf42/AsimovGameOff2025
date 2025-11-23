@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://7iqa37rxi25j"]
+[gd_scene load_steps=8 format=3 uid="uid://7iqa37rxi25j"]
 
 [ext_resource type="Script" uid="uid://bwy3tvumkjl5r" path="res://Scripts/game_over_menu.gd" id="1_arass"]
 [ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_i22rp"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="3_dsdey"]
 [ext_resource type="PackedScene" uid="uid://csv2ctwaq5ext" path="res://Scenes/statistics_panel.tscn" id="4_eqaa1"]
+[ext_resource type="Script" uid="uid://doqtuarp6f848" path="res://Scripts/button_sfx.gd" id="4_q2job"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dsdey"]
 shader = ExtResource("2_i22rp")
@@ -72,6 +73,7 @@ size_flags_vertical = 3
 size_flags_stretch_ratio = 0.78
 theme = ExtResource("3_dsdey")
 text = "RETRY"
+script = ExtResource("4_q2job")
 
 [node name="PADDING" type="ColorRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -86,6 +88,7 @@ size_flags_stretch_ratio = 0.78
 theme = ExtResource("3_dsdey")
 text = "MAIN
 MENU"
+script = ExtResource("4_q2job")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -112,7 +115,6 @@ offset_left = 400.0
 offset_top = 144.0
 offset_right = -400.0
 offset_bottom = -312.0
-mouse_filter = 2
 
 [connection signal="pressed" from="VBoxContainer/Retry" to="." method="_on_retry_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]

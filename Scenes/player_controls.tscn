@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://suufrxtls4xf"]
+[gd_scene load_steps=9 format=3 uid="uid://suufrxtls4xf"]
 
 [ext_resource type="Script" uid="uid://dmqlm0rmtjc07" path="res://Scripts/player_controls.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://cioan2mn8rthe" path="res://Assets/Textures/spark.png" id="2_j2jf7"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_j4x5a"]
+[ext_resource type="Script" uid="uid://fd2bwu4g6fuv" path="res://Scripts/slider_ticking.gd" id="3_hjd3n"]
 [ext_resource type="Texture2D" uid="uid://o4bri38mwdvn" path="res://Assets/Textures/vertical_slider_grabber.png" id="4_bne1u"]
 [ext_resource type="Texture2D" uid="uid://bi6ly26gi0sja" path="res://Assets/Textures/horizontal_slider_grabber.png" id="5_pl3xe"]
+[ext_resource type="AudioStream" uid="uid://c7y7ofarj57eb" path="res://Assets/Sounds/tick.mp3" id="6_8uoca"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j4x5a"]
 bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
@@ -37,6 +39,11 @@ theme = ExtResource("2_j4x5a")
 min_value = -3.0
 max_value = 3.0
 step = 0.001
+script = ExtResource("3_hjd3n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HBoxContainer/Amplitude"]
+stream = ExtResource("6_8uoca")
+volume_db = -15.0
 
 [node name="PADDING" type="ColorRect" parent="HBoxContainer"]
 layout_mode = 2
@@ -57,6 +64,11 @@ min_value = 0.5
 max_value = 3.0
 step = 0.001
 value = 1.5
+script = ExtResource("3_hjd3n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HBoxContainer/VBoxContainer/Wavelength"]
+stream = ExtResource("6_8uoca")
+volume_db = -15.0
 
 [node name="Offset" type="HSlider" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -66,6 +78,11 @@ theme = ExtResource("2_j4x5a")
 max_value = 12.0
 step = 0.001
 value = 5.0
+script = ExtResource("3_hjd3n")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="HBoxContainer/VBoxContainer/Offset"]
+stream = ExtResource("6_8uoca")
+volume_db = -15.0
 
 [node name="AmplitudeEmitter" type="CPUParticles2D" parent="."]
 emitting = false

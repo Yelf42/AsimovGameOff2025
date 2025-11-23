@@ -9,9 +9,9 @@ var lerpWavelengthGlitch: bool = false
 var lerpOffsetGlitch: bool = false
 var lerpAmount: float = 0.0
 
-var amplitude
-var wavelength
-var offset
+var amplitude: VSlider
+var wavelength: HSlider
+var offset: HSlider
 
 func _ready() -> void:
 	amplitude = $HBoxContainer/Amplitude

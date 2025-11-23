@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy4g1e2fwiijg"]
+
+[ext_resource type="Script" uid="uid://de8mn3cop5pyh" path="res://Scenes/button_sfx_controller.gd" id="1_nhnob"]
+[ext_resource type="AudioStream" uid="uid://u0iympw05tbq" path="res://Assets/Sounds/button_click.wav" id="2_wl5ex"]
+[ext_resource type="AudioStream" uid="uid://5oi5yt8abjsu" path="res://Assets/Sounds/button_hover.mp3" id="3_wl5ex"]
+
+[node name="ButtonSFX" type="Node2D"]
+script = ExtResource("1_nhnob")
+
+[node name="ButtonClickAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wl5ex")
+volume_db = -12.404
+
+[node name="ButtonHoverAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wl5ex")
+volume_db = -19.083

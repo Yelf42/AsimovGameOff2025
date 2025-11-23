@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://r4ytomf7hl16"]
+[gd_scene load_steps=11 format=3 uid="uid://r4ytomf7hl16"]
 
 [ext_resource type="Script" uid="uid://3233o4fox5q2" path="res://Scripts/main_menu.gd" id="1_28flt"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_1ehe0"]
 [ext_resource type="Texture2D" uid="uid://daanu5tcd6nt8" path="res://Assets/Textures/cutscene_placeholder.png" id="2_48xlc"]
+[ext_resource type="Script" uid="uid://doqtuarp6f848" path="res://Scripts/button_sfx.gd" id="3_ce3w2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ehe0"]
 atlas = ExtResource("2_48xlc")
@@ -82,6 +83,7 @@ offset_right = 656.0
 offset_bottom = 360.0
 theme = ExtResource("2_1ehe0")
 text = "Play"
+script = ExtResource("3_ce3w2")
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
@@ -93,13 +95,22 @@ theme = ExtResource("2_1ehe0")
 text = "TITLE OF THE GAME"
 horizontal_alignment = 1
 
-[node name="CutscenePlayer" type="AnimatedSprite2D" parent="."]
+[node name="CutsceneBlocker" type="TextureRect" parent="."]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="CutscenePlayer" type="AnimatedSprite2D" parent="CutsceneBlocker"]
 position = Vector2(576, 325)
 sprite_frames = SubResource("SpriteFrames_yhxw7")
 animation = &"Cutscene"
 
-[node name="Label" type="Label" parent="CutscenePlayer"]
+[node name="Label" type="Label" parent="CutsceneBlocker/CutscenePlayer"]
 offset_left = 248.0
 offset_top = 267.0
 offset_right = 563.0
@@ -112,4 +123,4 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="animation_finished" from="CutscenePlayer" to="." method="_on_cutscene_player_animation_finished"]
+[connection signal="animation_finished" from="CutsceneBlocker/CutscenePlayer" to="." method="_on_cutscene_player_animation_finished"]
