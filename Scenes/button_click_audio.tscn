@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy4g1e2fwiijg"]
 
-[ext_resource type="Script" uid="uid://de8mn3cop5pyh" path="res://Scenes/button_sfx_controller.gd" id="1_nhnob"]
+[ext_resource type="Script" uid="uid://de8mn3cop5pyh" path="res://Scripts/button_sfx_controller.gd" id="1_nhnob"]
 [ext_resource type="AudioStream" uid="uid://u0iympw05tbq" path="res://Assets/Sounds/button_click.wav" id="2_wl5ex"]
 [ext_resource type="AudioStream" uid="uid://5oi5yt8abjsu" path="res://Assets/Sounds/button_hover.mp3" id="3_wl5ex"]
 
