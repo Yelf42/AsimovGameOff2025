@@ -5,11 +5,16 @@ const GROWTH_SPEED: float = 0.1
 
 const MIN_SCALE: float = 0.8
 
+const MAX_VOLUME: float = -10.0
+const MIN_VOLUME: float = -40.0
+
 var growing = true
 
 func _ready() -> void:
 	var viewport = get_viewport().size
 	self.position = Vector2(randf_range(viewport.x / 10, 9 * viewport.x / 10), randf_range(viewport.y / 10, 9 * viewport.y / 10))
+	$AudioStreamPlayer.volume_db = -40.0
+	$AudioStreamPlayer.play(randf() * 10.0)
 
 func _process(delta: float) -> void:
 	if (growing): 
@@ -21,6 +26,9 @@ func _process(delta: float) -> void:
 		shrink(delta)
 		if ($Sprite2D.scale.x <= MIN_SCALE):
 			queue_free()
+	
+	var t = ($Sprite2D.scale.x - MIN_SCALE) / (MAX_SCALE - MIN_SCALE)
+	$AudioStreamPlayer.volume_db = lerp(MIN_VOLUME, MAX_VOLUME, t)
 
 func getShaderData() -> Vector3:
 	return Vector3(self.position.x, self.position.y, $Sprite2D.scale.x * $Sprite2D.get_rect().size.x / 2.0)
