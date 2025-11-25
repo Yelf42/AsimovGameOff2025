@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://0bu7vrg3cxg5"]
+
+[ext_resource type="Script" uid="uid://e3atw6gqp6aw" path="res://Scripts/music_player.gd" id="1_ous86"]
+[ext_resource type="AudioStream" uid="uid://beqohjppvimed" path="res://Assets/Sounds/music_general.wav" id="2_5b442"]
+[ext_resource type="AudioStream" uid="uid://cujgyn2k2op12" path="res://Assets/Sounds/music_paused.wav" id="3_y2bv6"]
+
+[node name="MusicPlayer" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_ous86")
+
+[node name="General" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5b442")
+volume_db = -80.0
+autoplay = true
+
+[node name="Paused" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_y2bv6")
+volume_db = -10.495
+autoplay = true
