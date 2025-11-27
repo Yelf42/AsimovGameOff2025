@@ -1,12 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://ddj7e6ybpskb4"]
+[gd_scene load_steps=8 format=3 uid="uid://ddj7e6ybpskb4"]
 
 [ext_resource type="Script" uid="uid://dqwwxa8sganml" path="res://Scripts/pause_menu.gd" id="1_hdmo1"]
 [ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_1och7"]
 [ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="2_k0w1u"]
 [ext_resource type="Script" uid="uid://doqtuarp6f848" path="res://Scripts/button_sfx.gd" id="4_bpi0q"]
+[ext_resource type="Texture2D" uid="uid://cd1ayyuebedeq" path="res://Assets/Textures/music_icon.png" id="5_vmyb1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpi0q"]
 shader = ExtResource("2_1och7")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vmyb1"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+shadow_color = Color(0.8784314, 0.6509804, 0.6862745, 1)
+shadow_size = 1
+shadow_offset = Vector2(3.605, 0)
 
 [node name="PauseMenu" type="Control"]
 process_mode = 3
@@ -87,5 +103,32 @@ theme = ExtResource("2_k0w1u")
 text = "PAUSE"
 horizontal_alignment = 1
 
+[node name="MusicToggle" type="Button" parent="."]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 416.0
+offset_top = 584.0
+offset_right = 464.0
+offset_bottom = 632.0
+toggle_mode = true
+
+[node name="MusicIcon" type="Sprite2D" parent="MusicToggle"]
+modulate = Color(0.6313726, 0.3137255, 0.43137255, 1)
+position = Vector2(24, 24)
+rotation = 3.1415927
+scale = Vector2(0.186, -0.186)
+texture = ExtResource("5_vmyb1")
+
+[node name="Panel" type="Panel" parent="MusicToggle"]
+visible = false
+layout_mode = 0
+offset_left = 0.9999907
+offset_top = 34.000015
+offset_right = 8.006887
+offset_bottom = 79.92851
+rotation = -1.9338248
+theme_override_styles/panel = SubResource("StyleBoxFlat_vmyb1")
+
 [connection signal="pressed" from="VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="VBoxContainer/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="toggled" from="MusicToggle" to="." method="_on_music_toggle_toggled"]

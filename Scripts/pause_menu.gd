@@ -26,3 +26,8 @@ func _on_resume_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	root.openMainMenu()
 	self.hide()
+
+
+func _on_music_toggle_toggled(toggled_on: bool) -> void:
+	$MusicToggle/Panel.visible = toggled_on
+	root.music = !toggled_on

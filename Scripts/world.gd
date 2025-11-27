@@ -15,6 +15,8 @@ var targetWave: PackedVector3Array
 var package = preload("res://Scenes/package.tscn")
 var mth = preload("res://Scenes/mouth.tscn")
 
+var music: bool = true
+
 # Sum of amplitudes in targetWave:
 # <= MAX_AMPLITUDE
 # > MIN_AMPLITUDE
