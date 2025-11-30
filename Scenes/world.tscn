@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://od5m3mfkfi2x"]
+[gd_scene load_steps=24 format=3 uid="uid://od5m3mfkfi2x"]
 
 [ext_resource type="Script" uid="uid://bp65uwyt41lk5" path="res://Scripts/world.gd" id="1_f3sb7"]
 [ext_resource type="Shader" uid="uid://dj6rppcvicxh1" path="res://Assets/Shaders/grid.gdshader" id="2_0fj1v"]
@@ -11,13 +11,18 @@
 [ext_resource type="PackedScene" uid="uid://dedmpeebt8dwr" path="res://Scenes/blocker_glitch_manager.tscn" id="5_5v1tr"]
 [ext_resource type="PackedScene" uid="uid://csv2ctwaq5ext" path="res://Scenes/statistics_panel.tscn" id="5_k7acu"]
 [ext_resource type="PackedScene" uid="uid://r4ytomf7hl16" path="res://Scenes/main_menu.tscn" id="6_5ukr8"]
+[ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="6_e0ngr"]
 [ext_resource type="PackedScene" uid="uid://7iqa37rxi25j" path="res://Scenes/game_over_menu.tscn" id="7_o06y3"]
+[ext_resource type="PackedScene" uid="uid://drqnsq3oqdcnm" path="res://Scenes/narative_display.tscn" id="8_c5t2i"]
 
 [sub_resource type="Environment" id="Environment_ikia7"]
 background_mode = 3
 glow_enabled = true
-glow_intensity = 0.64
-glow_bloom = 0.25
+glow_intensity = 0.79
+glow_bloom = 0.26
+glow_hdr_threshold = 0.23
+glow_hdr_scale = 1.94
+glow_hdr_luminance_cap = 256.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5v1tr"]
 bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
@@ -52,8 +57,41 @@ corner_radius_bottom_left = 50
 shadow_color = Color(0.14117648, 0.14117648, 0.14117648, 1)
 shadow_offset = Vector2(0, -15.105)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hgpy0"]
+shader = ExtResource("6_e0ngr")
+shader_parameter/saturation = 1.0
+shader_parameter/darken = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgpy0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e0ngr"]
+shader = ExtResource("6_e0ngr")
+shader_parameter/saturation = 1.0
+shader_parameter/darken = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kn0ld"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 5
+shadow_color = Color(0.37, 0.185, 0.25283337, 1)
+shadow_offset = Vector2(0, -20)
+
 [node name="World" type="Node2D"]
 script = ExtResource("1_f3sb7")
+metadata/_edit_horizontal_guides_ = [648.0]
+metadata/_edit_vertical_guides_ = [1152.0]
 
 [node name="MusicPlayer" parent="." instance=ExtResource("2_7yui6")]
 
@@ -119,6 +157,8 @@ one_shot = true
 [node name="WavePaddingDelay" type="Timer" parent="."]
 one_shot = true
 
+[node name="NarativeDisplay" parent="." instance=ExtResource("8_c5t2i")]
+
 [node name="StatisticsPanel" parent="." instance=ExtResource("5_k7acu")]
 offset_left = 16.0
 offset_top = 416.0
@@ -128,6 +168,23 @@ metadata/_edit_lock_ = true
 
 [node name="BlockerGlitchManager" parent="." instance=ExtResource("5_5v1tr")]
 metadata/_edit_lock_ = true
+
+[node name="Scanlines" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_hgpy0")
+offset_left = 432.0
+offset_top = 80.0
+offset_right = 1072.0
+offset_bottom = 360.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_hgpy0")
+
+[node name="ScanLines" type="Panel" parent="Scanlines"]
+material = SubResource("ShaderMaterial_e0ngr")
+layout_mode = 0
+offset_left = -374.0
+offset_top = 10.0
+offset_right = -106.0
+offset_bottom = 166.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_kn0ld")
 
 [node name="PauseMenu" parent="." instance=ExtResource("2_036b0")]
 visible = false

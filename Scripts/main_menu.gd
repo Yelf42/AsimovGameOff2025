@@ -21,6 +21,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 func _on_play_pressed() -> void:
 	$CutsceneBlocker.show()
 	cutscene.play("Cutscene")
+	skipCutscene() # TODO: Remove when/if cutscene is added
 
 func _on_cutscene_player_animation_finished() -> void:
 	root.startGame()

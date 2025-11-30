@@ -1,0 +1,131 @@
+[gd_scene load_steps=9 format=3 uid="uid://drqnsq3oqdcnm"]
+
+[ext_resource type="Theme" uid="uid://b0wxdkg8qvafo" path="res://Assets/Themes and Styles/theme.tres" id="1_jg08e"]
+[ext_resource type="Script" uid="uid://ce55k7w8garrq" path="res://Scripts/narative_display.gd" id="1_rn3yy"]
+[ext_resource type="Shader" uid="uid://b5w0dsk856cak" path="res://Assets/Shaders/static.gdshader" id="2_xswqr"]
+[ext_resource type="Theme" uid="uid://dn8if565u2iar" path="res://Assets/Themes and Styles/segment_display.tres" id="3_xswqr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weayy"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.76862746, 0.38431373, 0.5254902, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 5
+shadow_color = Color(0.6313726, 0.3137255, 0.43137255, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, 20)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rn3yy"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.14, 0.14, 0.14, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 5
+shadow_color = Color(0.37, 0.185, 0.25283337, 1)
+shadow_size = 1
+shadow_offset = Vector2(0, -20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w56ak"]
+shader = ExtResource("2_xswqr")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4sx3e"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 1)
+corner_radius_top_left = 40
+corner_radius_top_right = 40
+corner_radius_bottom_right = 40
+corner_radius_bottom_left = 40
+corner_detail = 5
+shadow_color = Color(0.37, 0.185, 0.25283337, 1)
+shadow_offset = Vector2(0, -20)
+
+[node name="NarativeDisplay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rn3yy")
+metadata/_edit_vertical_guides_ = [-144.0]
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 32.0
+offset_right = 360.0
+offset_bottom = 384.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_weayy")
+
+[node name="Indent" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 88.0
+offset_right = 328.0
+offset_bottom = 248.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_rn3yy")
+
+[node name="Label" type="Label" parent="Indent"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 48.0
+offset_right = 240.0
+offset_bottom = 96.0
+theme = ExtResource("1_jg08e")
+theme_override_colors/font_color = Color(0.7372549, 0.7372549, 0.7372549, 1)
+theme_override_font_sizes/font_size = 48
+text = "NO SIGNAL"
+horizontal_alignment = 1
+
+[node name="ScanLines" type="Panel" parent="Indent"]
+visible = false
+material = SubResource("ShaderMaterial_w56ak")
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 270.0
+offset_bottom = 158.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_4sx3e")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 272.0
+offset_right = 282.0
+offset_bottom = 300.0
+theme = ExtResource("1_jg08e")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 27
+text = "Current OBJECTIVE :"
+horizontal_alignment = 2
+
+[node name="Objective" type="Label" parent="."]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 320.0
+offset_right = 320.0
+offset_bottom = 344.0
+theme = ExtResource("3_xswqr")
+text = "ANOT AVAILABLe"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 1
+
+[node name="TextScroll" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[connection signal="timeout" from="TextScroll" to="." method="_on_text_scroll_timeout"]

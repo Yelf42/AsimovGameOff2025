@@ -1,6 +1,8 @@
 shader_type canvas_item;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float saturation = 1.0;
+uniform float darken = 0.0;
 
 float random (vec2 uv) {
     return fract(sin(dot(uv.xy,
@@ -22,5 +24,7 @@ void fragment() {
 		uv.x += 0.05 * pow(0.05 - abs(uv.y - r), 1.2);
 	}
 	float s = sin(800.0 * uv.x) / 50.0;
-	COLOR = vec4(chromatic_abberation(2.0, uv) - s, 1.0);
+	vec3 col = chromatic_abberation(2.0, uv);
+	vec3 desat = mix(vec3(dot(col, vec3(0.299, 0.587, 0.114))), col, saturation);
+	COLOR = vec4(desat - s - darken, 1.0);
 }
